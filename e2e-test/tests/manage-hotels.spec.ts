@@ -9,7 +9,7 @@ test.beforeEach(async ({ page }) => {
   // get sign in button
   await page.getByRole("link", { name: "Sign In" }).click();
   await expect(page.getByRole("heading", { name: "Sign In" })).toBeVisible();
-  await page.locator("[name=email]").fill("test@tes.com");
+  await page.locator("[name=email]").fill("test_register@tes.com");
   await page.locator("[name=password]").fill("pass1234");
 
   await page.getByRole("button", { name: "Login" }).click();
@@ -20,9 +20,9 @@ test.beforeEach(async ({ page }) => {
 test("shoul allow user to add a hotel", async ({ page }) => {
   await page.goto(`${UI_URL}add-hotel`);
 
-  await page.locator("[name=name]").fill("Test Hotel");
-  await page.locator("[name=city]").fill("Test City");
-  await page.locator("[name=country]").fill("Test Country");
+  await page.locator("[name=name]").fill("Hotel Test");
+  await page.locator("[name=city]").fill("City");
+  await page.locator("[name=country]").fill("Country");
   await page
     .locator("[name=description]")
     .fill("This is description for Test Hotel");
@@ -43,4 +43,19 @@ test("shoul allow user to add a hotel", async ({ page }) => {
 
   await page.getByRole("button", { name: "Save" }).click();
   await expect(page.getByText("Hotel saved")).toBeVisible();
+});
+
+test("should display hotels", async ({ page }) => {
+  await page.goto(`${UI_URL}my-hotels`);
+
+  await expect(page.getByText("Hotel Test")).toBeVisible();
+  await expect(page.getByText("This is description")).toBeVisible();
+  await expect(page.getByText("City ,Country")).toBeVisible();
+  await expect(page.getByText("Budget")).toBeVisible();
+  await expect(page.getByText("$100 per night")).toBeVisible();
+  await expect(page.getByText("2 adults, 1 children")).toBeVisible();
+  await expect(page.getByText("4 Star Rating")).toBeVisible();
+
+  await expect(page.getByRole("link", { name: "View Details" })).toBeVisible();
+  await expect(page.getByRole("link", { name: "Add Hotel" })).toBeVisible();
 });
