@@ -27,7 +27,7 @@ test("shoul allow user to add a hotel", async ({ page }) => {
     .locator("[name=description]")
     .fill("This is description for Test Hotel");
   await page.locator("[name=pricePerNight]").fill("100");
-  await page.selectOption('select[name="starRating"]', "4");
+  await page.selectOption('select[name="starRating"]', "3");
   await page.getByText("Budget").click();
 
   await page.getByLabel("Free Wifi").check();
@@ -54,7 +54,7 @@ test("should display hotels", async ({ page }) => {
   await expect(page.getByText("Budget")).toBeVisible();
   await expect(page.getByText("$100 per night")).toBeVisible();
   await expect(page.getByText("2 adults, 1 children")).toBeVisible();
-  await expect(page.getByText("4 Star Rating")).toBeVisible();
+  await expect(page.getByText("3 Star Rating")).toBeVisible();
 
   await expect(
     page.getByRole("link", { name: "View Details" }).first()
