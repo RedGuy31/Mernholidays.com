@@ -62,4 +62,7 @@ test("should book hotel", async ({ page }) => {
   await stripeFrame.locator("[placeholder='ZIP']").fill("11745");
   await page.getByRole("button", { name: "Confirm Booking" }).click();
   await expect(page.getByText("Booking saved")).toBeVisible();
+
+  await page.getByRole("link", { name: "My Bookings" }).click();
+  await expect(page.getByText("Grand showi")).toBeVisible();
 });
